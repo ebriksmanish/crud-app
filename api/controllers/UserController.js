@@ -18,13 +18,33 @@ module.exports = {
         });
     },
     retrieveUser : function(req, res){
-
+        let criteria = {};
+        User.find(criteria).exec(function(err, records){
+            if(err) return res.serverError(err)
+            else return res.json(records)
+        });
     },
     updateUserByEmail : function(req, res){
-
+        let findCriteria = {
+            email : req.body.Email
+        };
+        let updatedRecords = {
+            name : req.body.Name,
+            password : req.body.Password
+        };
+        User.update(findCriteria, updatedRecords).exec(function(err, records){
+            if(err) return res.serverError(err)
+            else return res.json(records)
+        });
     },
     deleteUserByEmail :function(req, res){
-
+        let criteria = {
+            email : req.body.Email
+        };
+        User.destroy(criteria).exec(function(err){
+            if(err) return res.negotiate(err);
+            else return res.ok("user deleted")
+        });
     }
 	
 };
