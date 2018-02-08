@@ -31,7 +31,7 @@ module.exports = {
                     name : req.body.Name,
                     password : req.body.Password
                 };
-                User.update(findCriteria, updatedRecords)
+                User.update(findCriteria, updatedRecords, {new :true})
                 .then((records) => {return res.json(records)})
                 .catch((err) => {return res.serverError(err)})
             },
